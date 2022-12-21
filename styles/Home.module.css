@@ -1,0 +1,10 @@
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 0 0 33.3%;
+  max-width: 33.3%;
+  word-wrap: break-word;
+}

@@ -1,48 +1,12 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import { ethers } from 'ethers';
 import { useState } from 'react';
-import initialState from './initialState';
-
-const tokenURIABI = [
-  {
-    "inputs": [
-    {
-      "internalType": "uint256",
-      "name": "tokenId",
-      "type": "uint256"
-    }
-  ],
-  "name": "tokenURI",
-  "outputs": [
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    }
-  ],
-    "stateMutability": "view",
-    "type": "function"
-  }
-];
-
-// Create a provider to connect to the Ethereum network
-const provider = new ethers.providers.InfuraProvider("mainnet");
-
-const decodeBase64DataURI = (dataUri) => {
-  // Split the data URI at the comma
-  const parts = dataUri.split(',');
-
-  // Check the encoding information to make sure it is "base64"
-  if (!parts[0].endsWith(';base64')) {
-    console.log('Invalid encoding');
-    return;
-  }
-
-  // Decode the base64 encoded data using the atob() function
-  const decodedData = atob(parts[1]);
-  return decodedData;
-}
+import initialState from '../lib/initialState';
+import { decodeBase64DataURI } from '../lib/dataUri';
+import { tokenURIABI } from '../lib/abi';
+import Header from '../components/Header';
+import Form from '../components/Form';
+import Display from '../components/Display';
 
 export default function Home() {
   const [contractAddress, setContractAddress] = useState(initialState.contractAddress);
@@ -50,6 +14,12 @@ export default function Home() {
   const [tokenUri, setTokenUri] = useState(initialState.tokenUri);
   const [metadataJson, setMetadataJson] = useState(initialState.metadataJson);
   const [imageUri, setImageUri] = useState(initialState.imageUri);
+  const [provider, setProvider] = useState(initialState.provider); // Mainnet
+
+  async function handleNetworkChange(network) {
+    const provider = new ethers.providers.InfuraProvider(network);
+    setProvider(provider);
+  }
 
   async function handleSubmit() {
     // Create a contract instance
@@ -80,52 +50,29 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>NFT Metadata</title>
         <meta name="description" content="NFT Metadata fetcher" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <div>
-        <h1 className={styles.title}>
-          NFT Metadata
-        </h1>
-        </div>
-        <div className={styles.search}>
-            <input
-              type="search"
-              name="contractAddress"
-              value={contractAddress}
-              className={styles.input}
-              onChange={(event) => setContractAddress(event.target.value)}
-            />
-            <input
-              type="number"
-              name="tokenId"
-              min="0"
-              max="100000"
-              value={tokenId}
-              onChange={(event) => setContractAddress(event.target.value)}
-              className={styles.input}
-            />
-            <select name="network" className="select">
-              <option value="mainnet">Mainnet</option>
-            </select>
-          <button className={styles.button} onClick={handleSubmit}>Fetch</button>
-        </div>
-        <div className={styles.columns}>
-          <div className={`${styles.column} ${styles.image}`}>
-            <img src={imageUri} ></img>
-          </div>
-          <div className={styles.column}>{tokenUri}</div>
-          <div className={styles.column}>{metadataJson}</div>
-        </div>
+      <main>
+        <Header/>
+        <Form
+          contractAddress={contractAddress}
+          tokenId={tokenId}
+          setContractAddress={setContractAddress}
+          setTokenId={setTokenId}
+          handleNetworkChange={handleNetworkChange}
+          handleSubmit={handleSubmit}
+        />
+        <Display
+          tokenUri={tokenUri}
+          metadataJson={metadataJson}
+          imageUri={imageUri}
+        />
       </main>
-
-      <footer className={styles.footer}>
-      </footer>
     </div>
   )
 }

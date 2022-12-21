@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div>
-        <h1>NFT <span className={styles.red}>M</span><span className={styles.orange}>e</span><span className={styles.yellow}>t</span><span className={styles.green}>a</span><span className={styles.blue}>d</span><span className={styles.indigo}>a</span><span className={styles.violet}>t</span><span className={styles.purple}>a</span> Tool</h1>
+        <h1>NFT Metadata Tool</h1>
       </div>
       <div className={styles.socialIcons}>
         <a href="https://github.com/nvonpentz/nft-metadata-tool">

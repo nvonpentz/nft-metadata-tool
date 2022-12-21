@@ -20,38 +20,6 @@
   padding: 5px;
 }
 
-.red {
-  color: #ff0000; /* red */
-}
-
-.orange {
-  color: #ff7f00; /* orange */
-}
-
-.yellow {
-  color: #ffff00; /* yellow */
-}
-
-.green {
-  color: #00ff00; /* green */
-}
-
-.blue {
-  color: #0000ff; /* blue */
-}
-
-.indigo {
-  color: #4b0082; /* indigo */
-}
-
-.violet {
-  color: #9400d3; /* violet */
-}
-
-.purple {
-  color: #8b00ff; /* purple */
-}
-
 /* Form */
 .form {
   display: flex;

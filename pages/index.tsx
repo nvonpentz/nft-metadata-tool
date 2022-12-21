@@ -19,7 +19,7 @@ const Home = () => {
   const [provider, setProvider] = useState(initialState.provider); // Mainnet
   const [error, setError] = useState(initialState.error);
 
-  async function handleNetworkChange(network) {
+  async function handleNetworkChange(network: string) {
     const provider = new ethers.providers.InfuraProvider(network);
     setProvider(provider);
   }
@@ -50,7 +50,7 @@ const Home = () => {
       }
 
       // Set the metadata JSON
-      const metadataJson = JSON.stringify(metadata, null, 4, {sort_keys: true})
+      const metadataJson = JSON.stringify(metadata, null, 4)
       console.log(metadataJson);
       setMetadataJson(metadataJson);
 
@@ -62,10 +62,7 @@ const Home = () => {
       }
       setImageUri(imageUri);
       setError(initialState.error);
-
-      // // Decode the image URI
-      // const imageData = decodeBase64DataURI(imageUri);
-    } catch(error) {
+    } catch(error: any) {
       console.error(error.message);
       setError(error.message);
     }

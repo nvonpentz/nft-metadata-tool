@@ -1,7 +1,9 @@
+import styles from '../styles/Home.module.css'
+
 const Header = () => {
   return (
-    <header>
-      <h1>NFT Metadata</h1>
+    <header className={styles.header}>
+      <h1>NFT Metadata Tool</h1>
     </header>
   );
 }

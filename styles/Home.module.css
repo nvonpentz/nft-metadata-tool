@@ -97,6 +97,7 @@
 .label {
   text-align: center;
   font-weight: bold;
+  font-family: "Times New Roman", serif;
 }
 
 .scrollable {

@@ -51,7 +51,6 @@ const Content = () => {
 
       // Set the metadata JSON
       const metadataJson = JSON.stringify(metadata, null, 4)
-      console.log(metadataJson);
       setMetadataJson(metadataJson);
 
       // Get the image URI from the metadata
@@ -62,10 +61,20 @@ const Content = () => {
       }
       setImageUri(imageUri);
       setError(initialState.error);
+
+      // if imageUri is data scheme, decode and console.log
+      if (new URL(imageUri).protocol === 'data:') {
+        console.log(decodeBase64DataURI(imageUri));
+      }
+
     } catch(error: any) {
       console.error(error.message);
       setError(error.message);
     }
+  }
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
   }
 
   return (
@@ -84,7 +93,8 @@ const Content = () => {
       <div className={styles.grid}>
         <div className={styles.gridItem}>
           <div className={styles.label}>
-            TokenURI
+            Token URI
+            <button className={styles.copyButton} onClick={() => copyToClipboard(tokenUri)}>Copy</button>
           </div>
           <div className={styles.scrollable}>
             {tokenUri}
@@ -93,9 +103,10 @@ const Content = () => {
         <div className={styles.gridItem}>
           <div className={styles.label}>
             Metadata JSON
+            <button className={styles.copyButton} onClick={() => copyToClipboard(metadataJson)}>Copy</button>
           </div>
           <div className={styles.scrollable}>
-            {metadataJson}
+            <pre>{metadataJson}</pre>
           </div>
         </div>
         <div className={styles.gridItem}>

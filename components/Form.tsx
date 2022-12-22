@@ -21,7 +21,7 @@ const Form = ({
 }: Props) => {
   return (
     <div className={styles.form}>
-      <label htmlFor="contractAddress" className={styles.label}>Contract address:</label>
+      <label htmlFor="contractAddress" className={styles.label}>ERC721 Contract Address</label>
       <input
         type="search"
         id="contractAddress"
@@ -30,7 +30,7 @@ const Form = ({
         className={styles.formElement}
         onChange={(event) => setContractAddress(event.target.value)}
       />
-      <label htmlFor="tokenId" className={styles.label}>Token ID:</label>
+      <label htmlFor="tokenId" className={styles.label}>Token ID</label>
       <input
         type="number"
         id="tokenId"
@@ -41,7 +41,7 @@ const Form = ({
         className={styles.formElement}
         onChange={(event) => setTokenId(Number(event.target.value))}
       />
-      <label htmlFor="network" className={styles.label}>Network:</label>
+      <label htmlFor="network" className={styles.label}>Network</label>
       <select
         id="network"
         name="network"

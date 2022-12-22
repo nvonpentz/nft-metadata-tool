@@ -18,8 +18,9 @@ header {
 
 body, input, select {
   font-family: "Courier New", monospace;
+  font-size: 14px;
 }
 
-h1, h2, h3, button {
+h1, h2, h3 {
   font-family: "Times New Roman", serif;
 }

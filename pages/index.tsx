@@ -6,8 +6,8 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>NFT Metadata</title>
-        <meta name="description" content="NFT Metadata fetcher" />
+        <title>NFT Metadata Tool</title>
+        <meta name="description" content="A tool to fetch NFT Metadata" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>

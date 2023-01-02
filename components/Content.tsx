@@ -79,18 +79,18 @@ const Content = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <Form
-          contractAddress={contractAddress}
-          setContractAddress={setContractAddress}
-          tokenId={tokenId}
-          setTokenId={setTokenId}
-          handleNetworkChange={handleNetworkChange}
-          handleSubmit={handleSubmit}
-          error={error}
-        />
-      </div>
       <div className={styles.grid}>
+        <div className={styles.gridItem}>
+          <Form
+            contractAddress={contractAddress}
+            setContractAddress={setContractAddress}
+            tokenId={tokenId}
+            setTokenId={setTokenId}
+            handleNetworkChange={handleNetworkChange}
+            handleSubmit={handleSubmit}
+            error={error}
+          />
+        </div>
         <div className={styles.gridItem}>
           <div className={styles.label}>
             Token URI

@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div>
+      <div className={styles.title}>
         <h1>NFT Metadata Tool</h1>
       </div>
       <div className={styles.socialIcons}>

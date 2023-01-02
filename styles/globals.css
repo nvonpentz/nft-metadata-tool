@@ -3,8 +3,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 80px;
+  /* width: 100%; */
+  /* height: 80px; */
   font-size: 24px;
   font-weight: bold;
 }
@@ -21,6 +21,15 @@ body, input, select {
   font-size: 14px;
 }
 
+body {
+  margin: 0;
+}
+
 h1, h2, h3 {
   font-family: "Times New Roman", serif;
 }
+
+pre {
+  margin: 0;
+}
+

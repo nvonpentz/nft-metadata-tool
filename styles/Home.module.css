@@ -1,32 +1,37 @@
 .container {
   display: flex;
-}
-
-.sidebar {
-  width: 25%;
+  height: 85vh;
 }
 
 /* Header */
 .header {
   display: flex;
   flex-direction: column;
-  padding-bottom: 5px;
   border-bottom: 1px solid #eaeaea;
+  padding-bottom: 5px;
+  height: calc(15vh - 6px);
 }
+
+.title {
+  width: 100%;
+}
+
 .header h1 {
   margin: 0;
   padding-bottom: 2px;
+  text-align: center;
 }
+
+.socialIcons {}
+
 .socialIcons a {
-  padding: 5px;
+  text-align: center;
 }
 
 /* Form */
 .form {
   display: flex;
   flex-direction: column;
-  align-items: left;
-  margin: 10px;
 }
 
 .formElement {
@@ -59,15 +64,22 @@
 
 /* Grid */
 .grid {
+  width: calc(100% - 30px);
   display: flex;
-  width: 75%;
-  flex-wrap: wrap;
+  flex-direction: row;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .gridItem {
-  width: 31%;
-  padding: 1%;
-  border-left: 1px solid #eaeaea;
+  max-width: calc(40% - 10px);
+  min-width: calc(25% - 10px);
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  max-height: calc(100% - 50px);
 }
 
 .label {
@@ -78,43 +90,42 @@
   padding-bottom: 0.5rem;
 }
 
-.copyButton {
-  float: right;
-}
 
 .scrollable {
-  max-height: 75vh;
+  max-height: 100%;
   overflow-y: scroll;
   word-wrap: break-word;
   background-color: #f5f5f5;
   font-size: 0.7rem;
 }
 
+.copyButton {
+  float: right;
+}
+
 .nftImage{
   width: 100%;
-  height: auto;
-  object-fit: contain;
 }
 
 @media (max-width: 768px) {
-  .container {
-    display: block;
-  }
-  .sidebar {
-    width: 100%;
+  .header {
+    padding-left: 40px;
+    padding-bottom: 0px;
   }
 
   .grid {
+    flex-wrap: wrap;
     width: 100%;
+    padding: 0px;
   }
 
   .gridItem {
+    min-width: 100%;
     width: 100%;
+    padding: 20px;
   }
 
   .scrollable {
     max-height: 50vh;
   }
 }
-
-

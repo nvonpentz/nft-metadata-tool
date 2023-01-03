@@ -16,20 +16,20 @@ const Content = () => {
   const [tokenId, setTokenId] = useState(1);
   const [contractAddress, setContractAddress] = useState('0x59468516a8259058bad1ca5f8f4bff190d30e066');
   const [network, setNetwork] = useState('mainnet');
-  const [tokenUri, setTokenUri] = useState();
-  const [metadataJson, setMetadataJson] = useState();
-  const [imageUri, setImageUri] = useState();
-  const [error, setError] = useState();
+  const [tokenUri, setTokenUri] = useState('');
+  const [metadataJson, setMetadataJson] = useState('');
+  const [imageUri, setImageUri] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const { tokenId, contractAddress, network } = router.query;
+    const { tokenId: tokenId, contractAddress, network } = router.query;
     if (!contractAddress || !tokenId || !network) {
       return;
     }
-    setContractAddress(router?.query?.contractAddress);
-    setTokenId(router?.query?.tokenId);
-    setNetwork(router?.query?.network ?? initialState.network);
-    fetchTokenData(tokenId, contractAddress, network);
+    setContractAddress(contractAddress.toString());
+    setTokenId(Number(tokenId));
+    setNetwork(network.toString() ?? initialState.network.toString());
+    fetchTokenData(Number(tokenId), contractAddress.toString(), network.toString());
   }, [router]);
 
   async function handleSubmit() {
@@ -46,7 +46,7 @@ const Content = () => {
   }
 
   async function fetchTokenData(
-    tokenId: string,
+    tokenId: number,
     contractAddress: string,
     network: string
   ) {
@@ -82,7 +82,7 @@ const Content = () => {
 
       // Set the metadata JSON
       const metadataJson = JSON.stringify(metadata, null, 4)
-      setMetadataJson(metadataJson);
+      setMetadataJson(metadataJson.toString());
 
       // Get the image URI from the metadata
       let imageUri = metadata.image;

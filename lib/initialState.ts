@@ -74,7 +74,7 @@ const initialState = {
     "animation_url": "ipfs://QmX4nfgA35MiW5APoc4P815hMcH8hAt7edi5H3wXkFm485/50.html"
 }`,
   imageUri: "https://nftstorage.link/ipfs/QmXmuSenZRnofhGMz2NyT3Yc4Zrty1TypuiBKDcaBsNw9V/50.gif",
-  provider: new ethers.providers.InfuraProvider("mainnet"),
+  network: "mainnet",
   error: ''
 }
 

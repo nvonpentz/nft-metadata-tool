@@ -25,6 +25,7 @@
 .socialIcons {}
 
 .socialIcons a {
+  padding: 5px;
   text-align: center;
 }
 
@@ -69,17 +70,22 @@
   flex-direction: row;
   padding-left: 15px;
   padding-right: 15px;
+  justify-content: center;
 }
 
 .gridItem {
-  max-width: calc(40% - 10px);
-  min-width: calc(25% - 10px);
-  padding-left: 5px;
-  padding-right: 5px;
+  max-width: calc(40% - 20px);
+  min-width: calc(25% - 20px);
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 10px;
-  padding-bottom: 10px;
+  border-right: 1px solid #eaeaea;
 
-  max-height: calc(100% - 50px);
+  max-height: calc(100%);
+}
+
+.gridItemImage {
+  border-right: none;
 }
 
 .label {
@@ -92,7 +98,7 @@
 
 
 .scrollable {
-  max-height: 100%;
+  max-height: calc(100% - 35px);
   overflow-y: scroll;
   word-wrap: break-word;
   background-color: #f5f5f5;
@@ -116,7 +122,7 @@
   .grid {
     flex-wrap: wrap;
     width: 100%;
-    padding: 0px;
+    padding: 20px;
   }
 
   .gridItem {

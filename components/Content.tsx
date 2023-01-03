@@ -1,31 +1,62 @@
 import styles from '../styles/Home.module.css'
 import { ethers } from 'ethers';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import initialState from '../lib/initialState';
 import { decodeBase64DataURI } from '../lib/dataUri';
 import { convertIpfsUrlToGatewayUrl } from '../lib/ipfsUri';
 import { tokenURIABI } from '../lib/abi';
 import Header from '../components/Header';
 import Form from '../components/Form';
+import { useRouter } from 'next/router';
 
 interface Props {}
 
 const Content = () => {
-  const [contractAddress, setContractAddress] = useState(initialState.contractAddress);
-  const [tokenId, setTokenId] = useState(initialState.tokenId);
-  const [tokenUri, setTokenUri] = useState(initialState.tokenUri);
-  const [metadataJson, setMetadataJson] = useState(initialState.metadataJson);
-  const [imageUri, setImageUri] = useState(initialState.imageUri);
-  const [provider, setProvider] = useState(initialState.provider); // Mainnet
-  const [error, setError] = useState(initialState.error);
+  const router = useRouter();
+  const [tokenId, setTokenId] = useState(1);
+  const [contractAddress, setContractAddress] = useState('0x59468516a8259058bad1ca5f8f4bff190d30e066');
+  const [network, setNetwork] = useState('mainnet');
+  const [tokenUri, setTokenUri] = useState();
+  const [metadataJson, setMetadataJson] = useState();
+  const [imageUri, setImageUri] = useState();
+  const [error, setError] = useState();
 
-  async function handleNetworkChange(network: string) {
-    const provider = new ethers.providers.InfuraProvider(network);
-    setProvider(provider);
-  }
+  useEffect(() => {
+    const { tokenId, contractAddress, network } = router.query;
+    if (!contractAddress || !tokenId || !network) {
+      return;
+    }
+    setContractAddress(router?.query?.contractAddress);
+    setTokenId(router?.query?.tokenId);
+    setNetwork(router?.query?.network ?? initialState.network);
+    fetchTokenData(tokenId, contractAddress, network);
+  }, [router]);
 
   async function handleSubmit() {
+    router.push({
+      pathname: '/',
+      query: {
+        tokenId: tokenId,
+        contractAddress: contractAddress,
+        network: network
+      },
+    })
+
+    fetchTokenData(tokenId, contractAddress, network);
+  }
+
+  async function fetchTokenData(
+    tokenId: string,
+    contractAddress: string,
+    network: string
+  ) {
+    if (!tokenId || !contractAddress || !network) {
+      return;
+    }
+
     try {
+      const provider = new ethers.providers.InfuraProvider(network);
+
       // Create a contract instance
       const contract = new ethers.Contract(contractAddress, tokenURIABI, provider);
 
@@ -86,7 +117,8 @@ const Content = () => {
             setContractAddress={setContractAddress}
             tokenId={tokenId}
             setTokenId={setTokenId}
-            handleNetworkChange={handleNetworkChange}
+            network={network}
+            setNetwork={setNetwork}
             handleSubmit={handleSubmit}
             error={error}
           />
@@ -109,7 +141,7 @@ const Content = () => {
             <pre>{metadataJson}</pre>
           </div>
         </div>
-        <div className={styles.gridItem}>
+        <div className={`${styles.gridItem} ${styles.gridItemImage}`}>
           <div className={styles.label}>
             Image
           </div>

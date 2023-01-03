@@ -5,7 +5,8 @@ interface Props {
   setContractAddress: (contractAddress: string) => void;
   tokenId: number;
   setTokenId: (tokenId: number) => void;
-  handleNetworkChange: (network: string) => void;
+  network: string;
+  setNetwork: (network: string) => void;
   handleSubmit: () => void;
   error: string;
 }
@@ -15,7 +16,8 @@ const Form = ({
   setContractAddress,
   tokenId,
   setTokenId,
-  handleNetworkChange,
+  network,
+  setNetwork,
   handleSubmit,
   error,
 }: Props) => {
@@ -45,8 +47,9 @@ const Form = ({
       <select
         id="network"
         name="network"
+        value={network}
         className={styles.formElement}
-        onChange={(event) => handleNetworkChange(event.target.value)}
+        onChange={(event) => setNetwork(event.target.value)}
       >
         <option value="mainnet">Mainnet</option>
         <option value="goerli">Goerli</option>

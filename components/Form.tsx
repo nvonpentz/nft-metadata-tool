@@ -33,6 +33,10 @@ const Form = ({
       >
         <option value="mainnet">Mainnet</option>
         <option value="goerli">Goerli</option>
+        <option value="sepolia">Sepolia</option>
+        <option value="arbitrum">Arbitrum</option>
+        <option value="matic">Polygon</option>
+        <option value="optimism">Optimism</option>
       </select>
       <label htmlFor="contractAddress" className={styles.label}>ERC721 Contract Address</label>
       <input
@@ -48,8 +52,6 @@ const Form = ({
         type="number"
         id="tokenId"
         name="tokenId"
-        min="0"
-        max="100000"
         value={tokenId}
         className={styles.formElement}
         onChange={(event) => setTokenId(Number(event.target.value))}

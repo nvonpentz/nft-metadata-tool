@@ -8,6 +8,7 @@ const Home = () => {
       <Head>
         <title>NFT Metadata Tool</title>
         <meta name="description" content="A tool to fetch NFT Metadata" />
+        <link href='https://fonts.googleapis.com/css?family=Bungee' rel='stylesheet'/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>

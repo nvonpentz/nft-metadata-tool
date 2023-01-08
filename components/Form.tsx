@@ -23,6 +23,17 @@ const Form = ({
 }: Props) => {
   return (
     <div className={styles.form}>
+      <label htmlFor="network" className={styles.label}>Network</label>
+      <select
+        id="network"
+        name="network"
+        value={network}
+        className={styles.formElement}
+        onChange={(event) => setNetwork(event.target.value)}
+      >
+        <option value="mainnet">Mainnet</option>
+        <option value="goerli">Goerli</option>
+      </select>
       <label htmlFor="contractAddress" className={styles.label}>ERC721 Contract Address</label>
       <input
         type="search"
@@ -43,17 +54,6 @@ const Form = ({
         className={styles.formElement}
         onChange={(event) => setTokenId(Number(event.target.value))}
       />
-      <label htmlFor="network" className={styles.label}>Network</label>
-      <select
-        id="network"
-        name="network"
-        value={network}
-        className={styles.formElement}
-        onChange={(event) => setNetwork(event.target.value)}
-      >
-        <option value="mainnet">Mainnet</option>
-        <option value="goerli">Goerli</option>
-      </select>
       <button className={`${styles.formElement} ${styles.button}`} onClick={handleSubmit}>Fetch</button>
       {error && <p className={styles.error}>{error}</p>}
     </div>

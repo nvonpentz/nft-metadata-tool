@@ -2,7 +2,7 @@ import styles from '../styles/Home.module.css'
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 import initialState from '../lib/initialState';
-import { decodeBase64DataURI } from '../lib/dataUri';
+import { decodeDataUri } from '../lib/dataUri';
 import { convertIpfsUrlToGatewayUrl } from '../lib/ipfsUri';
 import { tokenURIABI } from '../lib/abi';
 import Header from '../components/Header';
@@ -69,7 +69,7 @@ const Content = () => {
       const scheme = uri.protocol;
       let metadata;
       if (scheme === 'data:') {
-        metadata = JSON.parse(decodeBase64DataURI(tokenUri));
+        metadata = JSON.parse(decodeDataUri(tokenUri));
       } else if (scheme === 'ipfs:') {
         const response = await fetch(convertIpfsUrlToGatewayUrl(uri));
         metadata = await response.json();
@@ -95,7 +95,7 @@ const Content = () => {
 
       // if imageUri is data scheme, decode and console.log
       if (new URL(imageUri).protocol === 'data:') {
-        console.log(decodeBase64DataURI(imageUri));
+        console.log(decodeDataUri(imageUri));
       }
 
     } catch(error: any) {

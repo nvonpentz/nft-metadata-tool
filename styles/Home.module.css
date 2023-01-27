@@ -14,8 +14,8 @@
 
 /* remove underline and color change on hover/active */
 .header a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .title {

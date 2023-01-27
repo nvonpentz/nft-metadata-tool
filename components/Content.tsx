@@ -24,7 +24,7 @@ const Content = () => {
 
   useEffect(() => {
     const { tokenId: tokenId, contractAddress, network } = router.query;
-    if (!contractAddress || !tokenId || !network) {
+    if (!contractAddress || !network || (network !== 'solana' && !tokenId)) {
       return;
     }
     setContractAddress(contractAddress.toString());
@@ -35,13 +35,19 @@ const Content = () => {
   }, [router]);
 
   const handleSubmit = async () => {
+    let query = {
+      tokenId,
+      contractAddress,
+      network
+    }
+
+    if (network === 'solana') {
+      query.tokenId = undefined
+    }
+
     router.push({
       pathname: '/',
-      query: {
-        tokenId: tokenId,
-        contractAddress: contractAddress,
-        network: network
-      },
+      query: query,
     })
 
     fetchTokenData(Number(tokenId), contractAddress, network);
@@ -52,7 +58,7 @@ const Content = () => {
     contractAddress: string,
     network: string
   ) => {
-    if (!tokenId || !contractAddress || !network) {
+    if (!contractAddress || !network || (network !== 'solana' && !tokenId)) {
       return;
     }
 

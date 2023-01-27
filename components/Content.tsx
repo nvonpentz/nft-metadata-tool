@@ -5,6 +5,7 @@ import initialState from '../lib/initialState';
 import { decodeDataUri } from '../lib/dataUri';
 import { convertIpfsUrlToGatewayUrl } from '../lib/ipfsUri';
 import { tokenURIABI } from '../lib/abi';
+import { fetchSolanaTokenUri } from '../lib/solana';
 import Header from '../components/Header';
 import Form from '../components/Form';
 import { useRouter } from 'next/router';
@@ -13,7 +14,7 @@ interface Props {}
 
 const Content = () => {
   const router = useRouter();
-  const [tokenId, setTokenId] = useState(1);
+  const [tokenId, setTokenId] = useState<number | undefined>(Math.floor(Math.random() * 5000) + 1);
   const [contractAddress, setContractAddress] = useState('0x59468516a8259058bad1ca5f8f4bff190d30e066');
   const [network, setNetwork] = useState('mainnet');
   const [tokenUri, setTokenUri] = useState('');
@@ -29,10 +30,11 @@ const Content = () => {
     setContractAddress(contractAddress.toString());
     setTokenId(Number(tokenId));
     setNetwork(network.toString() ?? initialState.network.toString());
+
     fetchTokenData(Number(tokenId), contractAddress.toString(), network.toString());
   }, [router]);
 
-  async function handleSubmit() {
+  const handleSubmit = async () => {
     router.push({
       pathname: '/',
       query: {
@@ -42,26 +44,33 @@ const Content = () => {
       },
     })
 
-    fetchTokenData(tokenId, contractAddress, network);
+    fetchTokenData(Number(tokenId), contractAddress, network);
   }
 
-  async function fetchTokenData(
+  const fetchTokenData = async (
     tokenId: number,
     contractAddress: string,
     network: string
-  ) {
+  ) => {
     if (!tokenId || !contractAddress || !network) {
       return;
     }
 
     try {
-      const provider = new ethers.providers.InfuraProvider(network);
+      let tokenUri;
+      if (network == "solana") {
+        // Solana
+        tokenUri = await fetchSolanaTokenUri(contractAddress);
+      } else {
+        // Ethereum chains
+        const provider = new ethers.providers.InfuraProvider(network);
 
-      // Create a contract instance
-      const contract = new ethers.Contract(contractAddress, tokenURIABI, provider);
+        // Create a contract instance
+        const contract = new ethers.Contract(contractAddress, tokenURIABI, provider);
 
-      // Call the tokenURI function
-      const tokenUri = await contract.tokenURI(tokenId)
+        // Call the tokenURI function
+        tokenUri = await contract.tokenURI(tokenId)
+      }
       setTokenUri(tokenUri);
 
       // Fetch the metadata JSON located at the tokenURI
@@ -81,7 +90,7 @@ const Content = () => {
       }
 
       // Set the metadata JSON
-      const metadataJson = JSON.stringify(metadata, null, 4)
+      const metadataJson = JSON.stringify(metadata, undefined, 4)
       setMetadataJson(metadataJson.toString());
 
       // Get the image URI from the metadata

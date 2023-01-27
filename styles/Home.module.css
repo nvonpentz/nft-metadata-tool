@@ -12,6 +12,12 @@
   height: calc(15vh - 6px);
 }
 
+/* remove underline and color change on hover/active */
+.header a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .title {
   width: 100%;
 }
@@ -55,6 +61,12 @@
 
 .button:hover {
   background-color: #675bee; /* Change background color on hover */
+}
+.button:disabled {
+  background-color: #eaeaea;
+  border-color: #eaeaea;
+  color: #a8a8a8;
+  cursor: not-allowed;
 }
 
 .error {

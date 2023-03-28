@@ -58,7 +58,7 @@ const Content = () => {
     contractAddress: string,
     network: string
   ) => {
-    if (!contractAddress || !network || (network !== 'solana' && !tokenId)) {
+    if (!contractAddress || !network) {
       return;
     }
 

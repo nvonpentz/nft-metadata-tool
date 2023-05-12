@@ -7,7 +7,7 @@ export const parseDataUri = (dataUri: string): { mimeType: string, encoding: str
 
   if (metadata[1] === 'base64') {
     result.encoding = 'base64';
-  } if (metadata[1] === 'utf8') {
+  } else if (metadata[1] === 'utf8') {
     result.encoding = 'utf8';
   } else {
     result.encoding = 'uri';

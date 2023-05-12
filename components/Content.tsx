@@ -14,8 +14,8 @@ interface Props {}
 
 const Content = () => {
   const router = useRouter();
-  const [tokenId, setTokenId] = useState<number | undefined>(Math.floor(Math.random() * 5000) + 1);
-  const [contractAddress, setContractAddress] = useState('0x59468516a8259058bad1ca5f8f4bff190d30e066');
+  const [tokenId, setTokenId] = useState<number | undefined>(5929);
+  const [contractAddress, setContractAddress] = useState('0x4b10701bfd7bfedc47d50562b76b436fbb5bdb3b');
   const [network, setNetwork] = useState('mainnet');
   const [tokenUri, setTokenUri] = useState('');
   const [metadataJson, setMetadataJson] = useState('');
